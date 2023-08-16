@@ -1,0 +1,29 @@
+.game {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(196, 236, 253);
+    background-image: url(../img/grass.png);
+    background-repeat: no-repeat;
+    background-position: bottom; 
+    /* overflow: hidden; */
+}
+
+#player {
+    width: 10vh;
+    height: auto;
+    top: 300px;
+    position: absolute;
+}
+
+#obstacle {
+    width: 10vw;
+    height: auto;
+    top: 300px;
+    left: 15vw;
+    position: absolute;
+}
+
+#page-gameover {
+    text-align: center;
+    background-color: #53C0FF;
+}
