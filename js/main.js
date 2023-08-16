@@ -30,10 +30,13 @@ class Game {
         });
     }
     removeObstacleIfOutside(obstacleInstance){
-        if (obstacleInstance.positionY < 0 - obstacleInstance.height) {
-            obstacleInstance.domElement.remove();
-            this.obstaclesArr.shift(); 
-        }
+        obstacleInstance.forEach(function(){
+            if (obstacleInstance.positionY < 0 - obstacleInstance.height) {
+                obstacleInstance.domElement.remove();
+                this.obstaclesArr.shift();
+        }})
+         
+        
     }
     detectCollision(obstacleInstance){
         if (
@@ -63,7 +66,7 @@ class Player{
 
         // this.domElement.className = "player";
         
-         this.domElement.style.backgroundImage = "url('../img/kangaroo.png')"
+        this.domElement.style.backgroundImage = "url('../img/kangaroo.png')"
         this.domElement.style.backgroundPosition = "center"
         this.domElement.style.backgroundSize = "contain"
         this.domElement.style.position = "absolute"
@@ -129,6 +132,7 @@ class Obstacle {
     move() {
         this.positionX -= 2;
         this.domElement.style.left = this.positionX + "px";
+
     }
 }
 
