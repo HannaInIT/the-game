@@ -1,17 +1,18 @@
 .game {
-    width: 100vw;
-    height: 100vh;
+    width: 98vw;
+    height: 96vh;
     background-color: rgb(196, 236, 253);
     background-image: url(../img/grass.png);
     background-repeat: no-repeat;
-    background-position: bottom; 
+    background-position: bottom;
 }
 
 #player {
-    width: 10vh;
+    width: 15vh;
     height: auto;
     top: 300px;
     position: absolute;
+
 }
 
 #obstacle {
