@@ -3,7 +3,15 @@ class Game {
         this.player = new Player(10, 30, 100, 100);
         this.obstaclesArr = []
         this.jumpingSound = document.getElementById("jumping-sound")
+        this.bgMusic = document.getElementById("bg-music")
+        this.score = 0
     }
+
+    countScore (){
+        this.score += 5;
+        document.getElementById("score").innerHTML = `Score: ${this.score}`;
+    }
+
     start (){
         this.attachEventListeners()
 
@@ -22,31 +30,25 @@ class Game {
     }
     attachEventListeners() {
         document.addEventListener("keydown", (event) => {
-            console.log(event.key)
+            //console.log(event.key)
             if (event.key === " ") {
                 if(!this.player.isJumping)
                 this.player.jump();
                 this.player.isJumping = true
                 this.jumpingSound.play();
-               
             } 
         });
     }
     removeObstacleIfOutside(obstacleInstance, i) {
-        
         const gameWidth = document.querySelector(".game").clientWidth;
         if (obstacleInstance.positionX < -100) {
             obstacleInstance.domElement.remove() ;
             this.obstaclesArr.splice(i, 1)
+            this.countScore ()
         }
     }
      
     detectCollision(obstacleInstance) {
-        // const playerTop = this.player.positionY;
-        // const playerBottom = this.player.positionY + this.player.height;
-        // const obstacleLeft = obstacleInstance.positionX;
-        //const obstacleRight = obstacleInstance.positionX + obstacleInstance.width;
-    
         if ( this.player.x < obstacleInstance.positionX + obstacleInstance.width &&
             this.player.x + this.player.width > obstacleInstance.positionX &&
             this.player.y < obstacleInstance.positionY + obstacleInstance.height &&
@@ -147,7 +149,6 @@ class Obstacle {
 
     }
 }
-
 
 const game = new Game();
 game.start();
