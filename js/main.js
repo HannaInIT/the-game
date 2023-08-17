@@ -2,6 +2,7 @@ class Game {
     constructor (){
         this.player = new Player(10, 30, 100, 100);
         this.obstaclesArr = []
+        this.jumpingSound = document.getElementById("jumping-sound")
     }
     start (){
         this.attachEventListeners()
@@ -26,6 +27,7 @@ class Game {
                 if(!this.player.isJumping)
                 this.player.jump();
                 this.player.isJumping = true
+                this.jumpingSound.play();
                
             } 
         });
