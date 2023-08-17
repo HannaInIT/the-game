@@ -14,35 +14,41 @@ class Game {
         setInterval(() => {
             this.obstaclesArr.forEach((obstacleInstance) => {
                 obstacleInstance.move();
-                this.removeObstacleIfOutside(obstacleInstance);
                 this.detectCollision(obstacleInstance);
+                this.removeObstacleIfOutside(obstacleInstance);
             });
         }, 10);
     }
     attachEventListeners() {
         document.addEventListener("keydown", (event) => {
             console.log(event.key)
-            if (event.key === "ArrowUp") {
+            if (event.key === " ") {
                 this.player.jump();
             } else if (event.key === "ArrowRight") {
                 this.player.moveRight();
             }
         });
     }
-    removeObstacleIfOutside(obstacleInstance){
-        obstacleInstance.forEach(function(){
-            if (obstacleInstance.positionY < 0 - obstacleInstance.height) {
-                obstacleInstance.domElement.remove();
-                this.obstaclesArr.shift();
-        }})
-         
-        
+
+    removeObstacleIfOutside(obstacleInstance) {
+        const gameWidth = document.querySelector(".game").clientWidth;
+    
+        if (obstacleInstance.positionX > gameWidth) {
+            obstacleInstance.domElement.remove();
+            const index = this.obstaclesArr.indexOf(obstacleInstance);
+            if (index > -1) {
+                this.obstaclesArr.splice(index, 1);
+            }
+        }
     }
-    detectCollision(obstacleInstance){
-        if (
-            this.player.positionY < obstacleInstance.positionX + obstacleInstance.height &&
-            this.player.positionY + this.player.height > obstacleInstance.positionY
-        ) {
+     
+    detectCollision(obstacleInstance) {
+        const playerTop = this.player.positionY;
+        const playerBottom = this.player.positionY + this.player.height;
+        const obstacleLeft = obstacleInstance.positionX;
+        //const obstacleRight = obstacleInstance.positionX + obstacleInstance.width;
+    
+        if (playerBottom > obstacleInstance.positionY && playerTop < obstacleInstance.positionY + obstacleInstance.height && obstacleInstance.positionX > 0) {
             console.log("game over");
             location.href = "./gameover.html";
         }
@@ -63,9 +69,6 @@ class Player{
     }
     createDomElement() {
         this.domElement = document.createElement("div");
-
-        // this.domElement.className = "player";
-        
         this.domElement.style.backgroundImage = "url('../img/kangaroo.png')"
         this.domElement.style.backgroundPosition = "center"
         this.domElement.style.backgroundSize = "contain"
@@ -78,29 +81,16 @@ class Player{
         const parentElm = document.querySelector(".game");
         parentElm.appendChild(this.domElement);
     }
-    fall(){
-        this.speedY = this.speedY - this.gravity
-        this.y = this.y + this.speedY
-    }
     jump(){
         this.speedY = 10
         this.y = this.y + this.speedY
         this.domElement.style.bottom = this.y + "px"
     }
+    fall(){
+        this.speedY = this.speedY - this.gravity
+        this.y = this.y + this.speedY
     }
-
-// const gameboard = document.querySelector(".game")
-// const plyImg = document.createElement("img")
-// const obstImg = document.createElement("img")
-
-// plyImg.src = './img/kangaroo.png'
-// obstImg.src = './img/tree.png'
-// console.log(gameboard)
-// gameboard.appendChild(plyImg)
-// gameboard.appendChild(obstImg)
-
-// const parentElm = document.querySelector(".game")
-// parentElm.appendChild()
+    }
 
 class Obstacle {
     constructor() {
@@ -114,8 +104,6 @@ class Obstacle {
     }
     createDomElement() {
         this.domElement = document.createElement("div");
-
-        // this.domElement.className = "obstacle";
         this.domElement.style.position = "absolute"
         this.domElement.style.backgroundImage = "url('../img/tree.png')"
         this.domElement.style.backgroundPosition = "center"
