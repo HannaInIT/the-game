@@ -1,18 +1,17 @@
 class Game {
-    constructor (){
+    constructor() {
         this.player = new Player(10, 30, 100, 100);
         this.obstaclesArr = []
         this.jumpingSound = document.getElementById("jumping-sound")
-        this.bgMusic = document.getElementById("bg-music")
         this.score = 0
     }
 
-    countScore (){
-        this.score += 5;
+    countScore() {
+        this.score += 1;
         document.getElementById("score").innerHTML = `Score: ${this.score}`;
     }
 
-    start (){
+    start() {
         this.attachEventListeners()
 
         setInterval(() => {
@@ -32,24 +31,24 @@ class Game {
         document.addEventListener("keydown", (event) => {
             //console.log(event.key)
             if (event.key === " ") {
-                if(!this.player.isJumping)
-                this.player.jump();
+                if (!this.player.isJumping)
+                    this.player.jump();
                 this.player.isJumping = true
                 this.jumpingSound.play();
-            } 
+            }
         });
     }
     removeObstacleIfOutside(obstacleInstance, i) {
         const gameWidth = document.querySelector(".game").clientWidth;
         if (obstacleInstance.positionX < -100) {
-            obstacleInstance.domElement.remove() ;
+            obstacleInstance.domElement.remove();
             this.obstaclesArr.splice(i, 1)
-            this.countScore ()
+            this.countScore()
         }
     }
-     
+
     detectCollision(obstacleInstance) {
-        if ( this.player.x < obstacleInstance.positionX + obstacleInstance.width &&
+        if (this.player.x < obstacleInstance.positionX + obstacleInstance.width &&
             this.player.x + this.player.width > obstacleInstance.positionX &&
             this.player.y < obstacleInstance.positionY + obstacleInstance.height &&
             this.player.y + this.player.height > obstacleInstance.positionY) {
@@ -59,11 +58,11 @@ class Game {
     }
 }
 
-class Player{
-    constructor(x, y, height, width){
+class Player {
+    constructor(x, y, height, width) {
         this.width = width
         this.height = height
-        this.y = y 
+        this.y = y
         this.x = x
         this.speedY = 0
         this.gravity = 0.05
@@ -87,23 +86,23 @@ class Player{
         const parentElm = document.querySelector(".game");
         parentElm.appendChild(this.domElement);
     }
-    jump(){
+    jump() {
         this.speedY = 4
-        let jumpInterval = setInterval(()=> {
+        let jumpInterval = setInterval(() => {
             this.y = this.y + this.speedY
             this.domElement.style.bottom = this.y + "px"
 
-        },10)
+        }, 10)
         setTimeout(() => {
             clearInterval(jumpInterval)
             this.fall()
         }, 1000)
     }
-    fall(){
+    fall() {
         this.speedY = 4
         let fallInterval = setInterval(() => {
 
-           
+
             this.y = this.y - this.speedY
             this.domElement.style.bottom = this.y + "px"
         }, 10)
@@ -116,7 +115,7 @@ class Player{
         this.y = this.initialY
         this.domElement.style.bottom = this.y + "px"
     }
-    }
+}
 
 class Obstacle {
     constructor() {
