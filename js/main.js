@@ -74,7 +74,7 @@ class Player {
     }
     createDomElement() {
         this.domElement = document.createElement("div");
-        this.domElement.style.backgroundImage = "url('../img/kangaroo.png')"
+        this.domElement.style.backgroundImage = "url('./img/kangaroo.png')"
         this.domElement.style.backgroundPosition = "center"
         this.domElement.style.backgroundSize = "contain"
         this.domElement.style.position = "absolute"
@@ -130,7 +130,7 @@ class Obstacle {
     createDomElement() {
         this.domElement = document.createElement("div");
         this.domElement.style.position = "absolute"
-        this.domElement.style.backgroundImage = "url('../img/tree.png')"
+        this.domElement.style.backgroundImage = "url('./img/tree.png')"
         this.domElement.style.backgroundPosition = "center"
         this.domElement.style.backgroundSize = "contain"
         this.domElement.style.backgroundRepeat = "no-repeat"
