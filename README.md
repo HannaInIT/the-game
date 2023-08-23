@@ -1,7 +1,7 @@
-#The game - Kangaroo jump
+# _The game - Kangaroo jump_
 
 
-####Adventures of funny kangaroo
+#### Adventures of funny kangaroo
 
 ___
 
